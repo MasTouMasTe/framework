@@ -47,9 +47,13 @@ class TodosController extends ControllerBase{
 
     	}
 
-    #[Route(path: "default", name:'home')]
-        	public function index(){
-
+     #[Route(path:"_default", name:'home' )]
+        public function index(){
+           if(USession::exists(self::LIST_SESSION_KEY)) {
+               $list = USession::get(self::LIST_SESSION_KEY, []);
+               return $this->display($list);
+           }
+           $this->showMessage('Bienvenue !','TodoLists permet de gerer des listes...','info','info circle outline');
         }
 
     private function menu(){
