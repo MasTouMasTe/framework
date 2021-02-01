@@ -2,9 +2,10 @@
 namespace controllers;
 use Ubiquity\attributes\items\router\Route;
 
- /**
- * Controller TodosController
- **/
+/**
+  * Controller TodosController
+  * @property \Ajax\php\ubiquity\JsUtils $jquery
+  */
 class TodosController extends ControllerBase{
 
     const CACHE_KEY = 'datas/lists/';
@@ -39,7 +40,8 @@ class TodosController extends ControllerBase{
 
     #[Route(path: "todos/new/{index}", name:'todos.new', methods:['get'])]
     	public function newlist($force){
-
+            USession::set(self::LIST_SESSION_KEY,[]);
+            $this->displayList([]);
     	}
 
     #[Route(path: "todos/saveList", name:'todos.save', methods:['get'])]
@@ -57,9 +59,12 @@ class TodosController extends ControllerBase{
         }
 
     private function menu(){
-
         $this->loadView(viewName: 'TodosController/menu.html');
 
+    }
+
+    private function displayList($list){
+        //$this->jquery->renderView(viewName: 'TodosController/displayList.html', ['list' => $list]);
 
     }
 
